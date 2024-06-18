@@ -2,7 +2,7 @@ from Chroma import Chroma
 
 class Note(Chroma):
     # do using of Chroma
-    def __init__(self, name:str = None, octave:int = None, midiNum:int = None, chroma:Chroma=None):
+    def __init__(self, name:str = None, octave:int = None, midiNum:int = None, chroma:Chroma=None) -> None:
         if name != None:
             super().__init__(nom = name)
         if midiNum is None and octave is None:
@@ -16,16 +16,14 @@ class Note(Chroma):
             self.octave = octave
             self.midiNum = self.index + octave*12
         
-        
-
-    
-    def getMidiMessage(self, velocity, channel, time):
+            
+    def getMidiMessage(self, velocity: int = 0, channel:int=0, time:float=0.0) -> dict:
         return {'note': self.midiNum, 'velocity': velocity, 'type': 'note_on', 'channel': channel, 'time': time}
 
 
 if __name__ == "__main__":
     # check first constructor
-    x = Note(name="Do", octave=4)
+    x = Note(name="Do", octave=5)
     print(x.midiNum, x.nom, x.index, x.octave)
     # check second constructor
     c = Note(midiNum=64)
