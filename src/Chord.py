@@ -28,16 +28,18 @@ class Chord(Chroma):
         res = list([i%12 for i in intervals])
         res.sort()
         return res
-        
-    def getProfile(self)->None:
-        prof = profiles[self.type_accord]
-        start = self.index
-        self.profile = {}
-        for i in range(0,12):
-            self.profile[Chroma.chroma[i]] = prof[(i-start)%12]
 
-    def computeDistance(profile2:list = []):
-        pass # return correlation entre self.getProfile et profile2
+    def getProfile(self) -> list[float]:
+        return profiles[self.nom][self.type_accord]
+
+        
+    # def getProfile(self)->None:
+    #     prof = profiles[self.type_accord]
+    #     start = self.index
+    #     self.profile = {}
+    #     for i in range(0,12):
+    #         self.profile[Chroma.chroma[i]] = prof[(i-start)%12]
+
 
 if __name__ == "__main__":
     x = Chord(nom="Do", accord_type="M")
@@ -57,6 +59,3 @@ if __name__ == "__main__":
         print(x.nom, x.type_accord, x.intervals)
     except ValueError as e:
         print("ValueError", e)
-
-    y.getProfile()
-    print(y.profile)
