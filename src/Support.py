@@ -1,8 +1,10 @@
 # create class midi player
 # add renversemet for chords | use modulo and after use sort like this we will get this [4, 7, 12] -> [0, 4, 7] -> M
 # realiser profiles for chord
-profileM= [6.35, 2.23, 3.48, 2.33, 4.38, 4.09, 2.52, 5.19, 2.39, 3.66, 2.29, 2.88]
-profilem = [6.33, 2.68, 3.52, 5.38, 2.60, 3.53, 2.54, 4.75, 3.98, 2.69, 3.34, 3.17]
+profiles = {
+    'M':[6.35, 2.23, 3.48, 2.33, 4.38, 4.09, 2.52, 5.19, 2.39, 3.66, 2.29, 2.88],
+    'm':[6.33, 2.68, 3.52, 5.38, 2.60, 3.53, 2.54, 4.75, 3.98, 2.69, 3.34, 3.17],
+}
 
 # calcule Distance between two profiles, calculate corralation
 # TODO tester les constructors de Chord et Chord_keyboard
