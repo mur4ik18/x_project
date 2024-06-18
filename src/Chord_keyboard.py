@@ -11,4 +11,7 @@ class Chord_keyboard(Chord,Note):
         self.note = Note(note)
 
     def getMidiMessage(self, time, velocity, channel):
-        return self.note.getMidiMessage(velocity, channel, time)
+        ret = []
+        for i in self.chord.intervals:
+            ret.append(Note(self.note.midiNum+i).getMidiMessage(velocity, channel, time))
+        return ret
