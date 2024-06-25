@@ -23,20 +23,12 @@ x = [
 
 # Initialize Pygame MIDI
 pygame.midi.init()
+for i in range(pygame.midi.get_count()):
+    print(i, pygame.midi.get_device_info(i))
 
 # Open an output port
-pygame_output = pygame.midi.Output(pygame.midi.get_default_output_id())
+player = pygame.midi.Output(pygame.midi.get_default_output_id())
 
-class PygameOutput(mido.ports.BaseOutput):
-    def _send(self, message):
-        pygame_output.write_short(*message.bytes())
-
-
-mido_output = PygameOutput()
-msg = mido.Message('note_on', note=60, velocity=64)
-
-# Send the message
-mido_output.send(msg)
 
 running = True
 
@@ -46,12 +38,13 @@ while running:
             running = False
     keys = pygame.key.get_pressed()
     if keys[pygame.K_SPACE]:
-        mido_output.send(mido.Message('note_on', note=60, velocity=64))
+        player.note_on(60, 60)
+        player.note_off(60)
        # pygame.mixer.music.play()
     screen.fill("purple")
     pygame.display.flip()
     clock.tick(60)
 
     
-del midi_out
+del player
 pygame.quit()
