@@ -9,7 +9,6 @@ from OurMidi import OurMidi
 import numpy as np
 
 
-
 def normolize(arr):
     # chaque element de arr diviser par v
     v = np.linalg.norm(arr)
@@ -20,17 +19,14 @@ def normolize(arr):
     return res
 
 def corr(arr, arr2):
-    if len(arr) != len(arr2):
-        raise ValueError("Length of arrays isn't same", arr, arr2)
+    #if len(arr) != len(arr2):
+    #    raise ValueError("Length of arrays isn't same", arr, arr2)
     a = np.array(arr)
     b = np.array(arr2)
 
     #a = a - np.mean(a)
     #b = b - np.mean(b)
-    print(a,b)
-    print(a*b)
-    print(np.linalg.vector_norm(arr), np.linalg.vector_norm(arr2))
-    return sum(a*b)/(np.linalg.vector_norm(arr)*np.linalg.vector_norm(arr2))
+    return np.sum(a*b)/(np.linalg.vector_norm(arr)*np.linalg.vector_norm(arr2))
 
 
     
@@ -39,7 +35,7 @@ if __name__ == "__main__":
     dict_chords = {}
     a = [4,4,4]
     
-    print(corr([6.2,2.33,2.8],[2.8,6.2,2.33]))
+    #print(corr([6.2,2.33,2.8],[2.8,6.2,2.33]))
     
     # m = OurMidi("Entr√©e virtuelle GarageBand")
     
