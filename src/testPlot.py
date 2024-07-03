@@ -1,27 +1,45 @@
 import matplotlib
 from Support import generateProfiles
-matplotlib.use("Agg")
-
-M,m = generateProfiles()
-
+import pygame
+from pygame.locals import *
 import matplotlib.backends.backend_agg as agg
-
-
 import pylab
+
+
+matplotlib.use("Agg")
+M,m = generateProfiles()
 
 fig = pylab.figure(figsize=[4, 4], # Inches
                    dpi=100,        # 100 dots per inch, so the resulting buffer is 400x400 pixels
                    )
 ax = fig.gca()
-ax.plot(M[1])
+
+M, m = generateProfiles()
+for i,t in enumerate(M):
+    xs = [1,2,3,4,5,6,7,8,9,10,11,12,13]
+    ys = t
+    print()
+    ax.plot(xs, ys, zs=len(M)-i, zdir='x', alpha=1)
+
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_zlabel('Z')
+def onclick(event):
+    print(event.xdata, event.ydata)
+
+cid = fig.canvas.mpl_connect('button_press_event', onclick)
+
+print(matplotlib.get_backend())
+
+# On the y-axis let's only label the discrete values that we have data for.
+ax.set_yticks(range(1,14),['C','Do', 'Do#', 'Re', 'Re#', 'Mi', 'Fa', 'Fa#', 'Sol', 'Sol#', 'La', 'La#', 'Si'])
 
 canvas = agg.FigureCanvasAgg(fig)
 canvas.draw()
 renderer = canvas.get_renderer()
 raw_data = renderer.tostring_rgb()
 
-import pygame
-from pygame.locals import *
+
 
 pygame.init()
 
