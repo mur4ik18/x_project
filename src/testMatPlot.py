@@ -38,21 +38,18 @@ def onclick(event):
             # Project the 3D data to 2D screen coordinates
             screen_proj = np.array([ax.transData.transform(proj_transform(x, y, z, ax.get_proj())[:2])
                                     for x, y, z in zip(xdata, ydata, zdata)])
-            
+
             dist = np.sqrt((screen_proj[:, 0] - x2d) ** 2 + (screen_proj[:, 1] - y2d) ** 2)
             min_dist_index = np.argmin(dist)
             
             # Get the closest point coordinates in the data space
             x_click, y_click, z_click = xdata[min_dist_index], ydata[min_dist_index], zdata[min_dist_index]
-            if dist[min_dist_index] < 5:  # Tolerance for clicking near the line
+            if dist[min_dist_index] < 10:  # Tolerance for clicking near the line
                 print(f'Clicked on line at 3D coordinates (X, Y, Z): ({x_click}, {y_click}, {z_click})')
                 print(f'X coordinate on the line where clicked: {x_click}')
                 break
 
 cid = fig.canvas.mpl_connect('button_press_event', onclick)
-
-print(matplotlib.get_backend())
-
 # On the y-axis let's only label the discrete values that we have data for.
 ax.set_yticks(range(1,14))
 #ax.set_yticklabels(['C','Do', 'Do#', 'Re', 'Re#', 'Mi', 'Fa', 'Fa#', 'Sol', 'Sol#', 'La', 'La#', 'Si'])
